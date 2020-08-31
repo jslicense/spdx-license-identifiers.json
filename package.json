@@ -1,6 +1,6 @@
 {
   "name": "spdx-license-identifiers",
-  "version": "0.0.0",
+  "version": "3.10.0",
   "description": "list of SPDX standard license identifiers",
   "repository": "jslicense/spdx-license-identifiers.json",
   "author": "The Linux Foundation",
