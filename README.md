@@ -2,6 +2,10 @@
 
 The package exports an array of strings. Each string is the [Software Package Data Exchange (SPDX)](https://spdx.org) identifier for a license, according to the SPDX [license list](https://spdx.org/licenses/).
 
+## Building
+
+`npm run build` generates package JSON files and updates the `version` property of `package.json`.
+
 ## History
 
 This package was created from scratch as a replacement for [spdx-license-ids](https://npmjs.com/package/spdx-license-ids) in August of 2020, to incorporate many new license identifiers in recent releases of the SPDX license list.  The maintainer of spdx-license-ids, [@shinnn](https://github.com/shinnn), served the JavaScript community for years by updating that package for new versions of the SPDX license list.
