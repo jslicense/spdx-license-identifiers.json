@@ -1,0 +1,16 @@
+{
+  "name": "spdx-license-identifiers",
+  "version": "0.0.0",
+  "description": "list of SPDX standard license identifiers",
+  "repository": "jslicense/spdx-license-identifiers.json",
+  "author": "The Linux Foundation",
+  "license": "CC-BY-3.0",
+  "files": [
+    "deprecated.json",
+    "index.json",
+    "version.json"
+  ],
+  "scripts": {
+    "build": "node build"
+  }
+}
