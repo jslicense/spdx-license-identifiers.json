@@ -10,6 +10,7 @@
     "index.json"
   ],
   "scripts": {
-    "build": "node build"
+    "build": "node build",
+    "latest": "node latest"
   }
 }
