@@ -1,10 +1,8 @@
 #!/usr/bin/env node
-const https = require('https')
-const meta = require('./package.json')
-const spawn = require('child_process').spawn
 
 // Get the lastest version of the package.
-const npm = spawn('npm', ['info', meta.name, '--json'])
+const npm = require('child_process')
+  .spawn('npm', ['info', require('./package.json').name, '--json'])
 const chunks = []
 npm.stdout
   .on('data', chunk => { chunks.push(chunk) })
@@ -13,7 +11,9 @@ npm.stdout
     const packageInfo = JSON.parse(buffer)
     const packageVersion = packageInfo['dist-tags'].latest
     console.log(`Latest Package Version: ${packageVersion}`)
-    https.request('https://spdx.org/licenses/licenses.json')
+
+    // Get the latest version of the SPDX license list.
+    require('https').request('https://spdx.org/licenses/licenses.json')
       .once('response', response => {
         const chunks = []
         response
@@ -23,6 +23,8 @@ npm.stdout
             const licenseList = JSON.parse(buffer)
             const listVersion = licenseList.licenseListVersion
             console.log(`License List Version:   ${listVersion}`)
+
+            // Check that package and list versions match.
             if (packageVersion.startsWith(listVersion)) {
               process.exit(0)
             } else {
