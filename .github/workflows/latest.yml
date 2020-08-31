@@ -1,6 +1,8 @@
 ---
 name: 'Check Latest SPDX License List'
 on:
+  workflow_dispatch:
+    inputs: {}
   schedule:
     - cron: '0 0 * * *'
 jobs:
