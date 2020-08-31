@@ -5,13 +5,13 @@ const https = require('https')
 
 // Download JSON file from spdx.org.
 https.request('https://spdx.org/licenses/licenses.json')
-  .once('response', function (response) {
+  .once('response', response => {
     assert.strictEqual(response.statusCode, 200)
     const chunks = []
     response
-      .on('data', function (chunk) { chunks.push(chunk) })
-      .once('error', function (error) { assert.ifError(error) })
-      .once('end', function () {
+      .on('data', chunk => { chunks.push(chunk) })
+      .once('error', error => { assert.ifError(error) })
+      .once('end', () => {
         const buffer = Buffer.concat(chunks)
         let parsed
         try {
@@ -29,7 +29,7 @@ https.request('https://spdx.org/licenses/licenses.json')
         assert.strictEqual(Array.isArray(licenses), true)
         const index = []
         const deprecated = []
-        licenses.forEach(function (object) {
+        licenses.forEach(object => {
           const id = object.licenseId
           assert.strictEqual(typeof id, 'string')
           if (object.isDeprecatedLicenseId) {
@@ -57,21 +57,18 @@ https.request('https://spdx.org/licenses/licenses.json')
         }
         writeFile('index.json', index)
         writeFile('deprecated.json', deprecated)
-        fs.readFile(
-          'package.json',
-          function (error, buffer) {
+        fs.readFile('package.json', (error, buffer) => {
+          assert.ifError(error)
+          let parsed
+          try {
+            parsed = JSON.parse(buffer)
+          } catch (error) {
             assert.ifError(error)
-            let parsed
-            try {
-              parsed = JSON.parse(buffer)
-            } catch (error) {
-              assert.ifError(error)
-            }
-            const patch = process.env.PATCH || '0'
-            parsed.version = version + '.' + patch
-            writeFile('package.json', parsed)
           }
-        )
+          const patch = process.env.PATCH || '0'
+          parsed.version = version + '.' + patch
+          writeFile('package.json', parsed)
+        })
       })
   })
   .end()
