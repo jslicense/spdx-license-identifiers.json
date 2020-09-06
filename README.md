@@ -1,6 +1,6 @@
 # spdx-license-identifiers
 
-The package exports an array of strings. Each string is the [Software Package Data Exchange (SPDX)](https://spdx.org) identifier for a license, according to the SPDX [license list](https://spdx.org/licenses/).
+The package exports an array of objects. Each the `id` property of each object is the [Software Package Data Exchange (SPDX)](https://spdx.org) identifier for a license, according to the SPDX [license list](https://spdx.org/licenses/).  The `deprecated` property of each object is `true` or `false`.
 
 ## Building
 

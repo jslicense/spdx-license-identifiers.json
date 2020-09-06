@@ -28,23 +28,21 @@ https.request('https://spdx.org/licenses/licenses.json')
         const licenses = parsed.licenses
         assert.strictEqual(Array.isArray(licenses), true)
         const index = []
-        const deprecated = []
         licenses.forEach(object => {
           const id = object.licenseId
           assert.strictEqual(typeof id, 'string')
           if (object.isDeprecatedLicenseId) {
-            deprecated.push(id)
+            index.push({ id, deprecated: true })
           } else {
-            index.push(id)
+            index.push({ id, deprecated: false })
           }
         })
 
         // Sort identifier lists.
-        index.sort()
-        deprecated.sort()
+        index.sort((a, b) => a.id - b.id)
 
         // Write JSON files.
-        let todo = 3
+        let todo = 2
         function finishTask (error) {
           assert.ifError(error)
           if (--todo === 0) process.exit(0)
@@ -56,7 +54,6 @@ https.request('https://spdx.org/licenses/licenses.json')
           )
         }
         writeFile('index.json', index)
-        writeFile('deprecated.json', deprecated)
         fs.readFile('package.json', (error, buffer) => {
           assert.ifError(error)
           let parsed
