@@ -6,7 +6,6 @@
   "author": "The Linux Foundation",
   "license": "CC-BY-3.0",
   "files": [
-    "deprecated.json",
     "index.json"
   ],
   "scripts": {
