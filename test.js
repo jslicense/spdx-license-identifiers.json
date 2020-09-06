@@ -10,4 +10,5 @@ fs.readFile('index.json', (error, buffer) => {
   assert(parsed.every(e => typeof e.id === 'string'), 'id strings')
   assert(parsed.every(e => typeof e.deprecated === 'boolean'), 'deprecated booleans')
   assert(parsed.some(e => e.id === 'MIT'), 'MIT')
+  assert(parsed.some(e => e.id === 'AGPL-3.0' && e.deprecated), 'AGPL-3.0 deprecated')
 })
